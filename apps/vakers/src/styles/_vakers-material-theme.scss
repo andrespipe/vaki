@@ -1,0 +1,19 @@
+@import '~@angular/material/theming';
+@import './vakers-vaki-web-theme';
+
+@include mat-core();
+
+$candy-app-primary: mat-palette($mat-vaki-theme-primary);
+$candy-app-accent: mat-palette($mat-vaki-theme-accent, A200, A100, A400);
+$candy-app-warn: mat-palette($vaki-mat-warn);
+$candy-app-theme: mat-dark-theme(
+  (
+    color: (
+      primary: $vaki-mat-primary,
+      accent: $vaki-mat-accent,
+      warn: $vaki-mat-warn,
+    ),
+  )
+);
+
+@include angular-material-theme($candy-app-theme);
