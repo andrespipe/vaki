@@ -17,7 +17,7 @@
             "tsConfig": "apps/vakers/tsconfig.app.json",
             "aot": true,
             "assets": ["apps/vakers/src/favicon.ico", "apps/vakers/src/assets"],
-            "styles": ["apps/vakers/src/styles.scss"],
+            "styles": ["./node_modules/@angular/material/prebuilt-themes/purple-green.css", "apps/vakers/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
