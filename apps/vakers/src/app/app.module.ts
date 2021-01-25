@@ -11,6 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { UiToolbarComponent } from './components/ui-toolbar/ui-toolbar.component';
 import { FormsModule } from '@angular/forms';
+import { ShoppingCartModule } from './modules/shopping-cart/shopping-cart.module';
 
 @NgModule({
   declarations: [AppComponent, UiToolbarComponent],
@@ -24,6 +25,7 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     MatListModule,
     MatSelectModule,
+    ShoppingCartModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

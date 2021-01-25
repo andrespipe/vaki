@@ -1,0 +1,19 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '@vakers-env';
+import { EffectsModule } from '@ngrx/effects';
+import { RewardEffects } from './reward.effects';
+
+@NgModule({
+  declarations: [],
+  imports: [
+    CommonModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([RewardEffects]),
+  ],
+})
+export class ShoppingCartModule {}

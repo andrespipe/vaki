@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@vakers-data": ["libs/data/index.ts"]
+      "@vakers-data": ["libs/data/index.ts"],
+      "@vakers-env": ["apps/vakers/src/environments/environment.ts"],
+      "@vakers-services/*": ["apps/vakers/src/app/services/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
