@@ -1,17 +1,18 @@
 export interface Vaki {
-  description: string;
-  start_date: number;
+  id?: string;
   close_date: number;
-  name: string;
-  summary: string;
-  url: string;
-  photo?: string;
-  video?: string;
   country: string; //Country['isoCode'];
-  tags?: string[];
-  raised: number;
-  vakersQty: number;
+  description: string;
   goal: number;
+  name: string;
+  photo?: string;
+  raised: number;
+  start_date: number;
+  summary: string;
+  tags?: string[];
+  url: string;
+  vakersQty: number;
+  video?: string;
 }
 
 export const vaki: Vaki = {

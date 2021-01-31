@@ -14,6 +14,13 @@ const rewardReducer = createReducer(
   on(RewardActions.GetRewardsSuccessful, (state, { payload }) => {
     return { ...state, rewards: payload };
   }),
+  on(RewardActions.GetRewardCart, (state) => state),
+  on(RewardActions.GetRewardCartSuccessful, (state, { payload }) => {
+    return { ...state, rewardsCart: payload };
+  }),
+  on(RewardActions.AddRewardToCart, (state) => {
+    return state;
+  }),
   on(
     RewardActions.RewardError,
     (state: RewardState, error: Error): RewardState => {

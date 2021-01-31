@@ -1,32 +1,39 @@
 import { Injectable } from '@angular/core';
-import { Vaki, vaki, vakiReward, VakiReward } from '@vakers-data';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Vaki, VakiReward } from '@vakers-data';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VakisService {
+  vakisList: Observable<Vaki[]>;
   currentVaki = new BehaviorSubject<Vaki>(null);
-  isVakiLoading = new BehaviorSubject<boolean>(false);
+  vakiUrl = new BehaviorSubject<string>(null);
+
+  constructor(private firestore: AngularFirestore) {
+    this.vakisList = this.firestore.collection<Vaki>('Vaki').valueChanges();
+    this.setupVakiLoader();
+  }
+
+  private setupVakiLoader(): void {
+    this.vakiUrl.subscribe((url) => {
+      this.firestore
+        .collection<Vaki>('Vaki', (ref) => ref.where('url', '==', url))
+        .valueChanges()
+        .subscribe((myVakis: Vaki[]) => {
+          const currentVaki = myVakis?.length ? myVakis[0] : null;
+          this.currentVaki.next(currentVaki);
+        });
+    });
+  }
 
   public loadVaki(url: string): void {
-    console.warn('loadVaki', url);
-    this.isVakiLoading.next(true);
-    setTimeout(() => {
-      this.currentVaki.next(vaki);
-      this.isVakiLoading.next(false);
-    }, 1000);
+    this.vakiUrl.next(url);
   }
 
   public unloadVaki(): void {
-    this.currentVaki.next(null);
-  }
-
-  public getVakisList(): Observable<Vaki[]> {
-    const vakiList: Vaki[] = new Array(10);
-    vakiList.fill(vaki);
-    return of(vakiList).pipe(delay(1000));
+    this.vakiUrl.next(null);
   }
 
   public getVakiRewards(): Observable<VakiReward[]> {
@@ -34,10 +41,43 @@ export class VakisService {
       currentVaki: { value: vaki },
     } = this;
     if (vaki) {
-      const vakiRewards: VakiReward[] = new Array(10);
-      vakiRewards.fill(vakiReward);
-      return of(vakiRewards).pipe(delay(1000));
+      return this.firestore
+        .collection<VakiReward>('VakiReward', (ref) =>
+          ref.where('key', '==', vaki.url).where('visible', '==', true)
+        )
+        .valueChanges({ idField: 'id' });
     }
     return of([]);
+  }
+
+  public takeVakiReward(rewardId: string): void {
+    const ref = this.firestore
+      .collection('VakiReward')
+      .doc<VakiReward>(rewardId);
+    ref
+      .get()
+      .toPromise()
+      .then((reward) => {
+        const claimed = reward.get('claimed');
+        const quantityAvailable = reward.get('quantityAvailable');
+        if (claimed < quantityAvailable) {
+          ref.update({ claimed: claimed + 1 });
+        }
+      });
+  }
+
+  public takeBackVakiReward(rewardId: string): void {
+    const ref = this.firestore
+      .collection('VakiReward')
+      .doc<VakiReward>(rewardId);
+    ref
+      .get()
+      .toPromise()
+      .then((reward) => {
+        const claimed = reward.get('claimed');
+        if (claimed > 0) {
+          ref.update({ claimed: claimed - 1 });
+        }
+      });
   }
 }

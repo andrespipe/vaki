@@ -16,7 +16,10 @@
             "polyfills": "apps/vakers/src/polyfills.ts",
             "tsConfig": "apps/vakers/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/vakers/src/favicon.ico", "apps/vakers/src/assets"],
+            "assets": [
+              "apps/vakers/src/favicon.ico",
+              "apps/vakers/src/assets"
+            ],
             "styles": [
               "apps/vakers/src/styles/_vakers-material-theme.scss",
               "apps/vakers/src/styles.scss"
@@ -86,11 +89,17 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/vakers"],
+          "outputs": [
+            "coverage/apps/vakers"
+          ],
           "options": {
             "jestConfig": "apps/vakers/jest.config.js",
             "passWithNoTests": true
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     },
@@ -115,7 +124,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/vakers-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/vakers-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }

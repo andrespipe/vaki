@@ -26,8 +26,8 @@
                 {{ reward.description }}
               </mat-card-content>
               <mat-card-actions>
-                <button mat-raised-button color="primary" class="w-100">
-                  COP {{ reward.value }}
+                <button mat-raised-button color="primary" class="w-100" (click)="addRewardToCart(reward)">
+                  {{ currentCurrency | async | vakiCurrency : reward.value }}
                 </button>
               </mat-card-actions>
             </mat-card>

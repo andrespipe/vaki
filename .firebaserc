@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "vakers-on-fire": {
+      "hosting": {
+        "vakers": [
+          "vakers-on-fire"
+        ]
+      }
+    }
+  }
+}
