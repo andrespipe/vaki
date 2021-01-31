@@ -1,24 +1,24 @@
 <div class="ui-toolbar-wrapper mat-elevation-z3">
   <mat-toolbar color="primary">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="toggleNav()">
       <mat-icon>menu</mat-icon>
     </button>
     <a href="" class="toolbar-logo">
       <img alt="Logo Vaki" src="assets/images/logos/vaki-logo-white&green.svg">
     </a>
     <span class="example-spacer"></span>
-    <form>
-      <mat-form-field appearance="fill">
-        <mat-select [(ngModel)]="selectedCountryCurrency" name="food">
-          <mat-option *ngFor="let country of currency | async" [value]="country.code">
-            {{country.code}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </form>
-    <button mat-raised-button color="primary" class="example-icon" aria-label="Example icon-button with share icon">
+    <button mat-button [matMenuTriggerFor]="menu" class="toolbar-item">
+      ${{ (currentCurrency | async )?.code }}
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button *ngFor="let country of currency | async" mat-menu-item (click)="onSelectCurrency(country)">
+        {{country.code}}
+      </button>
+    </mat-menu>
+    <button mat-raised-button color="primary" class="toolbar-item">
       INGRESAR
     </button>
-    <img src="assets/images/icons/lola-icon.gif" alt="Ícono de lola - Vaki gif" class="lola-gif">
+    <img src="assets/images/icons/lola-icon.gif" alt="Ícono de lola - Vaki gif" class="lola-gif toolbar-item">
   </mat-toolbar>
 </div>

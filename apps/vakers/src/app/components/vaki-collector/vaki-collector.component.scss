@@ -1,0 +1,36 @@
+.form-contribution {
+  .field-currency {
+    width: 80px;
+  }
+
+  .field-qty {
+    width: 130px;
+  }
+
+  .btn-submit {
+    height: 55px;
+    width: 130px;
+  }
+}
+
+.networks {
+  margin-top: 1rem;
+  .share-button {
+    margin: 0.2rem;
+    border-radius: 1.5rem;
+    border: #0f0 solid 1px;
+    min-width: unset;
+    padding: 0 5px;
+  }
+}
+
+.tag-list {
+  display: flex;
+  .tag-item {
+    white-space: nowrap;
+    border-radius: 1.5rem;
+    border: #0f0 solid 1px;
+    padding: 0.5rem 1rem;
+    margin: 0.2rem 0.2rem;
+  }
+}

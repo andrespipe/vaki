@@ -3,4 +3,5 @@ export interface ICurrency {
   currency: string;
   code: string;
   minorUnit: number | null;
+  conversionFactor: number;
 }

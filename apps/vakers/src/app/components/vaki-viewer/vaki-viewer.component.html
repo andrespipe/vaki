@@ -1,0 +1,39 @@
+<ng-container *ngIf="currentVaki | async as vaki">
+  <div>
+    <div class="vaki-header">
+      <div class="vaki-header-img">
+        <img src="{{ vaki.photo }}" class="vaki-photo">
+      </div>
+      <div class="vaki-header-content">
+        <vaki-challenge-vaki-collector></vaki-challenge-vaki-collector>
+      </div>
+    </div>
+    <ng-container *ngIf="rewardsStore | async as rewardsStore">
+      <div class="vaki-rewards-container">
+        <br>
+        <h3>Recompensas:</h3>
+        <br>
+        <div class="vaki-rewards">
+          <ng-container *ngFor="let reward of rewardsStore.rewards">
+            <mat-card class="vaki-reward">
+              <mat-card-title>
+                <div class="text">
+                  {{ reward.title }}
+                </div>
+                <img class="vaki-reward-photo" src="{{ reward.img }}" />
+              </mat-card-title>
+              <mat-card-content>
+                {{ reward.description }}
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-raised-button color="primary" class="w-100">
+                  COP {{ reward.value }}
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

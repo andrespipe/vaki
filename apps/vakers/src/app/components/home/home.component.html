@@ -1,0 +1,16 @@
+<ng-container *ngIf="vakisList | async as vakis">
+  <div class="vakis-list-container">
+    <ng-container *ngFor="let vaki of vakis">
+      <mat-card class="vaki-card">
+        <img mat-card-image class="vaki-pic" src="{{ vaki.photo }}">
+        <mat-card-title>{{ vaki.name }}</mat-card-title>
+        <mat-card-content>
+          {{ vaki.description }}
+        </mat-card-content>
+        <mat-card-actions>
+          <a [routerLink]="'vaki/' + vaki.url" mat-raised-button>VER MÁS</a>
+        </mat-card-actions>
+      </mat-card>
+    </ng-container>
+  </div>
+</ng-container>

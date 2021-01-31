@@ -1,0 +1,55 @@
+<ng-container *ngIf="currentVaki |async as vaki">
+  <mat-card>
+    <mat-card-title>{{ vaki.name }}</mat-card-title>
+    <mat-card-content>
+      <div class="additional-info">
+        <a href="#">Ver info</a>
+      </div>
+      <div class="vaki-status">
+        <div class="d-flex">
+          <div>{{ vaki.close_date | timeToEnd: vaki.start_date }}</div>
+          <div class="spacer-flex"></div>
+          <div>{{ round((vaki.raised/vaki.goal)*100) }}% de la meta</div>
+        </div>
+        <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+        <div class="d-flex">
+          <div>Meta:</div>
+          <div class="spacer-flex"></div>
+          <div>{{ currentCurrency | async | vakiCurrency : vaki.goal }}</div>
+        </div>
+      </div>
+      <div class="vaki-summary"></div>
+      <form [formGroup]="formVakiCollect" class="form-contribution d-flex">
+        <mat-form-field appearance="outline" class="field-currency">
+          <mat-label>Divisa</mat-label>
+          <mat-select formControlName="currency" (selectionChange)="handleCurrencyChange($event)">
+            <ng-container *ngFor="let cur of currency | async">
+              <mat-option [value]="cur.code">{{ cur.code }}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <div class="spacer-flex"></div>
+        <mat-form-field appearance="outline" class="field-qty">
+          <mat-label>Cantidad</mat-label>
+          <input formControlName="qty" matInput placeholder="Cantidad" value="">
+        </mat-form-field>
+        <div class="spacer-flex"></div>
+        <button mat-raised-button type="submit" class="btn-submit">Aportar</button>
+      </form>
+      <button mat-raised-button class="w-100">Ver recompensas</button>
+      <div class="networks d-flex">
+        <div class="tag-list">
+          <ng-container *ngFor="let tag of vaki.tags">
+            <span appearance="outline" class="tag-item">{{ tag }}</span>
+          </ng-container>
+        </div>
+        <div class="spacer-flex"></div>
+        <div>
+          <button mat-button class="share-button">
+            <span class="material-icons">share</span>
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-container>

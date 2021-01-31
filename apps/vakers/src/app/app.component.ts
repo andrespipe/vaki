@@ -1,19 +1,22 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { NavService } from '@vakers-services/nav.service';
 import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
 @Component({
   selector: 'vaki-challenge-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map((result) => result.matches),
-      shareReplay()
-    );
+export class AppComponent implements OnInit, AfterViewInit {
+  @ViewChild('drawer') navDrawer: any;
+  isHandset$: Observable<boolean>;
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private navService: NavService) {}
+
+  ngOnInit(): void {
+    this.isHandset$ = this.navService.isHandset;
+  }
+
+  ngAfterViewInit(): void {
+    this.navService.setNavDrawer(this.navDrawer);
+  }
 }

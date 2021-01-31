@@ -17,7 +17,8 @@
     "paths": {
       "@vakers-data": ["libs/data/index.ts"],
       "@vakers-env": ["apps/vakers/src/environments/environment.ts"],
-      "@vakers-services/*": ["apps/vakers/src/app/services/*"]
+      "@vakers-services/*": ["apps/vakers/src/app/services/*"],
+      "@vakers-store/*": ["apps/vakers/src/app/store/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

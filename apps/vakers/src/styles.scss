@@ -7,3 +7,21 @@ body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
+
+.content {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.spacer-flex {
+  flex-grow: 1;
+}

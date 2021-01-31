@@ -1,0 +1,46 @@
+.vaki-header {
+  display: block;
+}
+
+@media only screen and (min-width: 920px) {
+  .vaki-header {
+    display: flex;
+  }
+}
+
+.vaki-header {
+  .vaki-header-content {
+    min-width: 420px;
+  }
+}
+
+.vaki-photo {
+  width: 100%;
+  height: auto;
+}
+
+.vaki-rewards {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-gap: 1rem;
+
+  .vaki-reward mat-card-content {
+    height: 100px;
+    overflow-y: scroll;
+  }
+
+  mat-card-title {
+    display: flex;
+
+    .text {
+      flex-grow: 1;
+    }
+
+    .vaki-reward-photo {
+      width: 25%;
+      height: auto;
+    }
+  }
+}
