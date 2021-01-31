@@ -50,8 +50,18 @@ export class RewardEffects {
     this.action$.pipe(
       ofType(RewardActions.AddRewardToCart),
       mergeMap((action) => {
-        this.shoppingCartService.addReward(action.payload);
-        return of(RewardActions.AddToCartSuccess());
+        return this.vakisService.takeVakiReward(action.payload.id).pipe(
+          map((data: Boolean) => {
+            if (data) {
+              this.shoppingCartService.addReward(action.payload);
+              return RewardActions.AddToCartSuccess();
+            } else {
+              return RewardActions.AddToCartError(
+                new Error('Unable to add to cart')
+              );
+            }
+          })
+        );
       })
     )
   );

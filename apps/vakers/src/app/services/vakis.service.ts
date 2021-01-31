@@ -50,20 +50,28 @@ export class VakisService {
     return of([]);
   }
 
-  public takeVakiReward(rewardId: string): void {
-    const ref = this.firestore
-      .collection('VakiReward')
-      .doc<VakiReward>(rewardId);
-    ref
-      .get()
-      .toPromise()
-      .then((reward) => {
-        const claimed = reward.get('claimed');
-        const quantityAvailable = reward.get('quantityAvailable');
-        if (claimed < quantityAvailable) {
-          ref.update({ claimed: claimed + 1 });
-        }
-      });
+  public takeVakiReward(rewardId: string): Observable<boolean> {
+    const observable = new Observable<boolean>((subscriber) => {
+      const ref = this.firestore
+        .collection('VakiReward')
+        .doc<VakiReward>(rewardId);
+      ref
+        .get()
+        .toPromise()
+        .then((reward) => {
+          const claimed = reward.get('claimed');
+          const quantityAvailable = reward.get('quantityAvailable');
+          if (claimed < quantityAvailable) {
+            ref.update({ claimed: claimed + 1 });
+            subscriber.next(true);
+          } else {
+            subscriber.next(false);
+          }
+          subscriber.complete();
+        });
+    });
+
+    return observable;
   }
 
   public takeBackVakiReward(rewardId: string): void {

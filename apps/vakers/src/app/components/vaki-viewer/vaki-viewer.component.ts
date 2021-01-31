@@ -55,7 +55,6 @@ export class VakiViewerComponent implements OnInit, OnDestroy {
   private loadVakiRewards(): void {
     this.rewardsStore.pipe(takeUntil(this.subscription)).subscribe();
     this.store.dispatch(RewardActions.GetRewardsBegin());
-    this.store.dispatch(RewardActions.GetRewardCart());
   }
 
   public addRewardToCart(reward: VakiReward): void {
