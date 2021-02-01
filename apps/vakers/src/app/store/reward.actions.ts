@@ -22,7 +22,8 @@ export const AddRewardToCart = createAction(
 );
 
 export const AddToCartSuccess = createAction(
-  '[Reward] - Add to cart successful'
+  '[Reward] - Add to cart successful',
+  props<{ payload: VakiReward[] }>()
 );
 
 export const AddToCartError = createAction(
@@ -36,7 +37,13 @@ export const RemoveFromCart = createAction(
 );
 
 export const RemoveFromCartSuccessful = createAction(
-  '[Reward] - Remove from cart successful'
+  '[Reward] - Remove from cart successful',
+  props<{ payload: VakiReward[] }>()
+);
+
+export const RemoveFromCartError = createAction(
+  '[Reward] - Remove from cart error',
+  props<Error>()
 );
 
 export const RewardError = createAction('[Reward] - Error', props<Error>());

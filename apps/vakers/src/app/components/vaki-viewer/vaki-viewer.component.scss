@@ -26,6 +26,11 @@
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   grid-gap: 1rem;
 
+  .vaki-reward.unavailable {
+    background-color: #d8d8d8;
+    color: #4f4f4f;
+  }
+
   .vaki-reward mat-card-content {
     height: 100px;
     overflow-y: scroll;

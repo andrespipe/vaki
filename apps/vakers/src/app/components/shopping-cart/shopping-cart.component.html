@@ -1,1 +1,49 @@
-<p>shopping-cart works!</p>
+<ng-container *ngIf="rewardsStore | async as store">
+  
+  <div class="nav-button" *ngIf="store.rewardsCart && store.rewardsCart.length">
+    <button mat-button (click)="toggleCart()">
+      <mat-icon>shopping_cart</mat-icon>
+      <p>Cart</p>
+    </button>
+  </div>
+
+  <mat-card class="shopping-cart-panel" [class]="{ 'display': isCartOnView | async }">
+    <ng-container *ngIf="store.rewardsCart && store.rewardsCart.length; else emptyCart">
+      <ng-container *ngTemplateOutlet="cartTitle; context: { title: 'Carrito de compras' }"></ng-container>
+      <mat-card-content>
+        <mat-list>
+          <div>Items</div>
+          <ng-container *ngFor="let reward of store.rewardsCart">
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <button mat-button (click)="removeFromCart(reward)">
+                <mat-icon>remove_shopping_cart</mat-icon>
+              </button>
+              <div class="mat-line">{{ reward.title }}</div>
+              <div class="mat-line">{{ currentCurrency | async | vakiCurrency : parseInt(reward.value) }}</div>
+            </mat-list-item>
+          </ng-container>
+          <mat-divider></mat-divider>
+          Total {{ currentCurrency | async | vakiCurrency : store.totalPrice }}
+        </mat-list>
+      </mat-card-content>
+    </ng-container>
+  </mat-card>
+  
+  <ng-template #emptyCart>
+    <ng-container *ngTemplateOutlet="cartTitle; context: { title: 'Carrito de compras vacío' }"></ng-container>
+  </ng-template>
+  
+  <ng-template #cartTitle let-title="title">
+    <mat-card-title>
+      <div class="d-flex">
+        <button mat-button (click)="toggleCart()">
+          <mat-icon>close</mat-icon>
+        </button>
+        <div class="spacer-flex"></div>
+        <h1>{{ title }}</h1>
+      </div>
+    </mat-card-title>
+  </ng-template>
+</ng-container>
+

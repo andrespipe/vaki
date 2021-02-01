@@ -10,26 +10,28 @@ export class ShoppingCartService {
 
   constructor() {
     this.cartRewards = new BehaviorSubject([]);
-    this.cartRewards.subscribe((el) => console.log('cartRewards', { el }));
   }
 
-  public addReward(reward: VakiReward): void {
+  public addReward(reward: VakiReward): BehaviorSubject<VakiReward[]> {
     const {
       cartRewards: { value: rewards },
     } = this;
     const newRewards = [...rewards, reward];
     this.cartRewards.next(newRewards);
+    return this.cartRewards;
   }
 
-  public removeReward(rewardId: string): void {
+  public removeReward(reward: VakiReward): BehaviorSubject<VakiReward[]> {
     const {
       cartRewards: { value: rewards },
     } = this;
-    const rewardIdx = rewards.findIndex((reward) => reward.id === rewardId);
+    const rewardIdx = rewards.findIndex((r) => r.id === reward.id);
     if (rewardIdx > -1) {
       const newRewards = [...rewards];
       newRewards.splice(rewardIdx, 1);
       this.cartRewards.next(newRewards);
     }
+
+    return this.cartRewards;
   }
 }

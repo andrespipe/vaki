@@ -15,29 +15,32 @@
         <br>
         <div class="vaki-rewards">
           <ng-container *ngFor="let reward of rewardsStore.rewards">
-            <mat-card class="vaki-reward">
-              <mat-card-title>
-                <div class="text">
-                  {{ reward.title }}
-                </div>
-                <img class="vaki-reward-photo" src="{{ reward.img }}" />
-              </mat-card-title>
-              <mat-card-content>
-                {{ reward.description }}
-              </mat-card-content>
-              <mat-card-actions>
-                <ng-container *ngIf="reward.visible; else noRewardsBtn">
-                  <button mat-raised-button color="primary" class="w-100" (click)="addRewardToCart(reward)">
-                    {{ currentCurrency | async | vakiCurrency : reward.value }}
-                  </button>
-                </ng-container>
-                <ng-template #noRewardsBtn>
-                  <button mat-raised-button disabled color="primary" class="w-100">
-                    No disponible
-                  </button>
-                </ng-template>
-              </mat-card-actions>
-            </mat-card>
+            <ng-container *ngTemplateOutlet="rewardCard; context: { isAvailable: reward.visible || reward.claimed < reward.quantityAvailable }"></ng-container>
+            <ng-template #rewardCard let-isAvailable="isAvailable">
+              <mat-card class="vaki-reward" [ngClass]="{'unavailable': !isAvailable}" color="accent">
+                <mat-card-title>
+                  <div class="text">
+                    {{ reward.title }}
+                  </div>
+                  <img class="vaki-reward-photo" src="{{ reward.img }}" />
+                </mat-card-title>
+                <mat-card-content>
+                  {{ reward.description }}
+                </mat-card-content>
+                <mat-card-actions>
+                  <ng-container *ngIf="isAvailable; else noRewardsBtn">
+                    <button mat-raised-button color="primary" class="w-100" (click)="addRewardToCart(reward)">
+                      {{ currentCurrency | async | vakiCurrency : reward.value }}
+                    </button>
+                  </ng-container>
+                  <ng-template #noRewardsBtn>
+                    <button mat-raised-button disabled color="primary" class="w-100">
+                      No disponible
+                    </button>
+                  </ng-template>
+                </mat-card-actions>
+              </mat-card>
+            </ng-template>
           </ng-container>
         </div>
       </div>

@@ -1,0 +1,14 @@
+.shopping-cart-panel {
+  width: 400px;
+  position: fixed;
+  top: 60px;
+  height: calc(100vh - 60px);
+  overflow-y: scroll;
+  right: -435px;
+  transition: right 0.8s;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+  &.display {
+    right: 0px;
+  }
+}

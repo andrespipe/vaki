@@ -10,8 +10,8 @@
   height: 84px;
 }
 
-.nav-button,
-.nav-button > button {
+::ng-deep.nav-button,
+::ng-deep.nav-button > button {
   width: 100%;
 }
 
