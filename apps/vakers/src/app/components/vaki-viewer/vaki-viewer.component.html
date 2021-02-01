@@ -26,9 +26,16 @@
                 {{ reward.description }}
               </mat-card-content>
               <mat-card-actions>
-                <button mat-raised-button color="primary" class="w-100" (click)="addRewardToCart(reward)">
-                  {{ currentCurrency | async | vakiCurrency : reward.value }}
-                </button>
+                <ng-container *ngIf="reward.visible; else noRewardsBtn">
+                  <button mat-raised-button color="primary" class="w-100" (click)="addRewardToCart(reward)">
+                    {{ currentCurrency | async | vakiCurrency : reward.value }}
+                  </button>
+                </ng-container>
+                <ng-template #noRewardsBtn>
+                  <button mat-raised-button disabled color="primary" class="w-100">
+                    No disponible
+                  </button>
+                </ng-template>
               </mat-card-actions>
             </mat-card>
           </ng-container>

@@ -43,7 +43,7 @@ export class VakisService {
     if (vaki) {
       return this.firestore
         .collection<VakiReward>('VakiReward', (ref) =>
-          ref.where('key', '==', vaki.url).where('visible', '==', true)
+          ref.where('key', '==', vaki.url)
         )
         .valueChanges({ idField: 'id' });
     }
@@ -60,13 +60,15 @@ export class VakisService {
         .toPromise()
         .then((reward) => {
           const claimed = reward.get('claimed');
-          const quantityAvailable = reward.get('quantityAvailable');
-          if (claimed < quantityAvailable) {
-            ref.update({ claimed: claimed + 1 });
-            subscriber.next(true);
-          } else {
-            subscriber.next(false);
-          }
+          ref.update({ claimed: claimed + 1 });
+          subscriber.next(true);
+          // const quantityAvailable = reward.get('quantityAvailable');
+          // if (claimed < quantityAvailable) {
+          //   ref.update({ claimed: claimed + 1 });
+          //   subscriber.next(true);
+          // } else {
+          //   subscriber.next(false);
+          // }
           subscriber.complete();
         });
     });

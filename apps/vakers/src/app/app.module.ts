@@ -14,6 +14,7 @@ import { VakiCollectorComponent } from './components/vaki-collector/vaki-collect
 import { AppRoutingModule } from './modules/app-routing.module';
 import { DataModule } from './modules/data.module';
 import { SharedUiModule } from './modules/shared-ui.module';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SharedUiModule } from './modules/shared-ui.module';
     VakiCollectorComponent,
     VakiCurrencyPipe,
     VakiViewerComponent,
+    ShoppingCartComponent,
   ],
   imports: [
     AppRoutingModule,
