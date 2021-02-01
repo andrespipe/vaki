@@ -59,7 +59,7 @@ export class VakisService {
         .get()
         .toPromise()
         .then((reward) => {
-          const claimed = reward.get('claimed');
+          const claimed = parseInt(reward.get('claimed'));
           ref.update({ claimed: claimed + 1 });
           subscriber.next(true);
           // const quantityAvailable = reward.get('quantityAvailable');
@@ -85,7 +85,7 @@ export class VakisService {
         .get()
         .toPromise()
         .then((reward) => {
-          const claimed = reward.get('claimed');
+          const claimed = parseInt(reward.get('claimed'));
           if (claimed > 0) {
             ref.update({ claimed: claimed - 1 });
             subscriber.next(true);

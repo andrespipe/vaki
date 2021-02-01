@@ -5,7 +5,7 @@
 <mat-drawer-container class="sidenav-container" autosize>
   <mat-drawer
     #drawer
-    class="example-sidenav"
+    class="sidenav"
     mode="side"
     opened="true"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
@@ -34,6 +34,15 @@
   </mat-drawer>
 
   <section>
+    <div class="content-header" *ngIf="currentVaki | async">
+      <mat-tab-group>
+        <mat-tab label="Resumen">&nbsp;</mat-tab>
+        <mat-tab label="Recompensas">&nbsp;</mat-tab>
+        <mat-tab label="Historia">&nbsp;</mat-tab>
+        <mat-tab label="Progreso">&nbsp;</mat-tab>
+        <mat-tab label="Vakers">&nbsp;</mat-tab>
+      </mat-tab-group>
+    </div>
     <div class="content">
       <router-outlet></router-outlet>
     </div>
