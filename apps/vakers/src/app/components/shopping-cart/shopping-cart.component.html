@@ -2,7 +2,7 @@
   
   <div class="nav-button" *ngIf="store.rewardsCart && store.rewardsCart.length">
     <button mat-button (click)="toggleCart()">
-      <mat-icon>shopping_cart</mat-icon>
+      <mat-icon matBadge="{{store.rewardsCart.length}}" matBadgeOverlap="false">shopping_cart</mat-icon>
       <p>Cart</p>
     </button>
   </div>
@@ -20,11 +20,16 @@
                 <mat-icon>remove_shopping_cart</mat-icon>
               </button>
               <div class="mat-line">{{ reward.title }}</div>
+              <div class="spacer-flex"></div>
               <div class="mat-line">{{ currentCurrency | async | vakiCurrency : parseInt(reward.value) }}</div>
             </mat-list-item>
           </ng-container>
           <mat-divider></mat-divider>
-          Total {{ currentCurrency | async | vakiCurrency : store.totalPrice }}
+          <div class="d-flex">
+            <div>Total</div>
+            <div class="spacer-flex"></div>
+            <div>{{ currentCurrency | async | vakiCurrency : store.totalPrice }}</div>
+          </div>
         </mat-list>
       </mat-card-content>
     </ng-container>
